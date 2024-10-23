@@ -1,7 +1,7 @@
 n = int(input())
 array = list(map(int,input().strip().split()))[:n]
-r = n[::-1]
-if n==r:
+array_1 = array[::-1]
+if array == array_1:
     print("YES")
 else:
     print("NO")
