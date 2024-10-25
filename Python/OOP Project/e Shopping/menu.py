@@ -16,9 +16,9 @@ class Menu:
         item = self.find_item(item)
         if item:
             self.items.remove(item)
-            print(f"{item} remove successfully.")
+            print(f"{item.name} remove successfully.")
         else:
-            print(f"{item} is not found.")
+            print(f"{item.name} is not found.")
     
     def show_item(self):
         print("Name\tPrice\tquantity")
