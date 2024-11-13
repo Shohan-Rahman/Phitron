@@ -7,6 +7,8 @@ class Bank:
         self.total_amount = amount
         self.total_loan = 0
         self.users = {}
+        self.loan_active = True
+        self.bankrupt = False
 
 class User(ABC):
     def __init__(self,name,phone,address,email,password) -> None:
@@ -19,6 +21,7 @@ class User(ABC):
 class Admin(User):
     def __init__(self, name, phone, address, email, password) -> None:
         super().__init__(name, phone, address, email, password)
+        self.active = True
     
     def show_user(self,bank):
         for acc,details in bank.users.items():
@@ -38,6 +41,17 @@ class Admin(User):
 
     def total_loan_balance(self,bank):
         print(f"Total loan is {bank.total_loan} taka")
+    
+    def turn_on(self,bank):
+        bank.loan_active = True
+        print("Loan feature is ON.")
+    
+    def turn_off(self,bank):
+        bank.loan_active = False
+        print("Loan feature is OFF.")
+    
+    def bankrupt(self,bank):
+        bank.bankrupt = True
 
 class Member(User):
     def __init__(self, name, phone, address, email, password) -> None:
@@ -60,7 +74,10 @@ class Member(User):
         self.history.append(f"Deposited {amount} taka")
         print(f"{self.name}, you deposit {amount} taka.")
     
-    def withdraw(self,amount):
+    def withdraw(self,bank,amount):
+        if bank.bankrupt:
+            print("Please forgive us, we are fokir.")
+            return
         if amount > self.total_amount:
             print("Withdrawal amount exceeded")
         else:
@@ -87,6 +104,25 @@ class Member(User):
         print(f"Transaction history for {self.name}:")
         for entry in self.history:
             print(entry)
+
+    def loan(self,bank,amount):
+        if not bank.loan_active:
+            print("Loan feature is currently turned off.")
+            return
+        if self.loan_count < 2:
+            if amount > bank.total_amount:
+                print("Amount is too high.")
+            else:
+                self.total_amount += amount
+                self.total_loan += amount
+                bank.total_loan += amount
+                bank.total_amount -= amount
+                self.history.append(f"Your loan {amount} Taka take successfully")
+                self.loan_count += 1
+                print("Your loan is processed.")
+        else:
+            print("You have reached the maximum loan limit.")
+
 
 class Verification:
     def __init__(self) -> None:
@@ -139,27 +175,36 @@ def sign_in_user():
 def admin_menu(admin):
     while True:
         print(f"---Welcome {admin.name}!!---")
-        print("1 : Delete user")
-        print("2 : All user")
+        print("1 : All user")
+        print("2 : Delete user")
         print("3 : Total balance of the bank")
         print("4 : Total loan of the bank")
-        print("5 : Loan ON")
-        print("6 : Loan OFF")
+        print("5 : Loan ON/OFF")
+        print("6 : Bankrupt")
+        print("7 : Logout")
 
         ch = int(input("Enter option: "))
 
         if ch == 1:
-            item_name = input("Enter item name: ")
-            price = int(input("Enter price: "))
-            qu = int(input("Enter quantity: "))
-            item = Product(item_name,price,qu)
-            seller.add_item(panda,item)
+            admin.show_user(sonaly)
         elif ch == 2:
-            item = input("Enter item name: ")
-            seller.remove_item(panda,item)
+            ac = int(input("Which account you want to delete: "))
+            admin.delete_user(sonaly,ac)  
         elif ch == 3:
-            seller.show_item(panda)
+            admin.total_balance(sonaly)
         elif ch == 4:
+            admin.total_loan_balance(sonaly)
+        elif ch == 5:
+            print("ON : Are you want to turn ON?")
+            print("OFF : Are you want to turn OFF?")
+            ch = input("ON/OFF: ")
+            if ch.upper() == 'ON':
+                admin.turn_on(sonaly)
+            elif ch.upper() == 'OFF':
+                admin.turn_off(sonaly)
+        elif ch == 6:
+            admin.bankrupt(sonaly)
+        elif ch == 7:
             break
         else:
             print("Invalid option")
@@ -169,23 +214,35 @@ def user_menu(user):
         print(f"---Welcome {user.name}!!---")
         print("1 : Show account number")
         print("2 : Show total balance")
-        print("3 : View cart")
-        print("4 : PayBill")
-        print("5 : Logout")
+        print("3 : Show transaction history")
+        print("4 : Deposit")
+        print("5 : Withdraw")
+        print("6 : Transfer money")
+        print("7 : Take loan")
+        print("8 : Logout")
 
         ch = int(input("Enter option: "))
 
         if ch == 1:
-            customer.show_item(panda)
+            pass
         elif ch == 2:
-            item = input("Enter item name: ")
-            qu = int(input("Enter how much you want: "))
-            customer.add_to_cart(panda,item,qu)
+            user.show_balance()
         elif ch == 3:
-            customer.view_cart()
+            user.transaction_history()
         elif ch == 4:
-            customer.paybill()
+            amount = int(input("How much money you want to deposit: "))
+            user.deposit(amount)
         elif ch == 5:
+            amount = int(input("How much money you want to withdraw: "))
+            user.withdraw(sonaly,amount)
+        elif ch == 6:
+            ac = int(input("Which account number you want to transfer: "))
+            amount = int(input("How much money you want to transfer: "))
+            user.transfer(sonaly,ac,amount)
+        elif ch == 7:
+            amount = int(input("How much money you want to loan: "))
+            user.loan(sonaly,amount)
+        elif ch == 8:
             break
         else:
             print("Invalid option")
@@ -199,8 +256,8 @@ while True:
     ch = int(input("Enter option: "))
 
     if ch == 1:
-        print("S : Are you Admin?")
-        print("C : Are you User?")
+        print("A : Are you Admin?")
+        print("U : Are you User?")
         ch = input("A/U: ")
         if ch.upper() == 'A':
             admin = sign_in_admin()
