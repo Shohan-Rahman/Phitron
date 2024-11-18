@@ -1,0 +1,66 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.logo{
+    width: 150px;
+    margin-top: 5px;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: url("images/header.jpg");
+    background-size: contain;
+}
+li{
+    color: white;
+    list-style: none;
+    font-size: 30px;
+    border: 3px solid red;
+    padding: 5px;
+}
+.container{
+    display: flex;
+    gap: 10px;
+}
+li:hover{
+    color: rgb(6, 223, 6);
+    cursor: pointer;
+}
+.image-banner{
+    width: 350px;
+    height: 450px;
+    margin-top: 5px;
+}
+.banner-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: tomato;
+}
+.banner-left{
+    line-height: 1.5;
+    font-size: 25px;
+}
+p{
+    width: 450px;
+}
+.btn{
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font: bold;
+    font-size: 20px;
+}
+.hire{
+    background-color: rgb(6, 39, 223);
+}
+.project{
+    background-color: rgb(6, 223, 220);
+}
+.btn:hover{
+    color: black;
+}
