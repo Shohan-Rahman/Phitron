@@ -37,7 +37,7 @@ li:hover{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: tomato;
+    background-color: rgb(131, 68, 9);
 }
 .banner-left{
     line-height: 1.5;
@@ -63,4 +63,108 @@ p{
 }
 .btn:hover{
     color: black;
+}
+.service-title{
+    font-size: 35px;
+    text-align: center;
+    margin: 20px;
+    font: bold;
+    color: rgb(9, 73, 42);
+    text-decoration: underline;
+    text-decoration-color: rgb(9, 73, 42);
+}
+.image-service{
+    width: 250px;
+    height: 250px;
+}
+.p-service{
+    width: 300px;
+    line-height: 1.5;
+    margin: 12px;
+}
+.service-card{
+    width: 300px;
+    height: 465px;
+    box-shadow: 6px 6px 10px gray;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 20px;
+}
+.services{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.fa-solid{
+    font-size: 40px;
+    margin-top: 10px;
+    cursor: pointer;
+    color: blue;
+}
+.fa-solid:hover{
+    color: black;
+}
+.contact{
+    width: 500px;
+    height: 500px;
+    box-shadow: 4px 4px 8px grey;
+    text-align: center;
+    padding: 50px;
+    margin: auto;
+    margin-top: 30px;
+}
+.input-box{
+    width: 50%;
+    padding: 18px;
+    margin: 10px;
+}
+.message{
+    width: 50%;
+    height: 100px;
+    padding: 18px;
+    margin-top: 10px;
+}
+.submit-btn{
+    margin-top: 18px;
+    padding: 15px 40px;
+    background-color: aquamarine;
+    border: none;
+    border-radius: 20px;
+    color: rgb(55, 4, 243);
+    font: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+.submit-btn:hover{
+    color: black;
+}
+.footer{
+    width: 75%;
+    height: 250px;
+    margin: auto;
+    background-color: rgb(126, 125, 125);
+}
+.fa-brands{
+    font-size: 40px;
+    margin-top: 20px;
+    padding: 15px;
+}
+.fa-brands.fa-facebook{
+    padding-left: 44%;
+    color: rgb(22, 22, 225);
+}
+.fa-brands.fa-twitter{
+    color: rgb(8, 175, 241);
+}
+.fa-brands.fa-linkedin{
+    color: blue;
+}
+.foot-ti{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 10px;
+}
+.foot-des{
+    display: flex;
+    justify-content: space-around;
 }
